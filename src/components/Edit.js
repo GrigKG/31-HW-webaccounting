@@ -5,6 +5,8 @@ const Edit = props => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [newPassword, setNewPassword] = useState('');
+    const login = sessionStorage.getItem('login');
+    const password = sessionStorage.getItem('password');
 
     return (
         <div>
@@ -13,7 +15,7 @@ const Edit = props => {
                 <input
                     onChange={event => setFirstName(event.target.value)}
                     type='text'
-                    placeholder='new first Name'/>
+                    placeholder='New first Name'/>
                 <input
                     onChange={event => setLastName(event.target.value)}
                     type='text'
@@ -27,7 +29,7 @@ const Edit = props => {
                     placeholder='New password'/>
             </div>}
             <button
-                onClick={() => props.getAccount(props.typeEdit, props.login, props.password, firstName, lastName, newPassword)}>
+                onClick={() => props.getAccount(props.typeEdit, login, password, firstName, lastName, newPassword)}>
                 Save
             </button>
         </div>

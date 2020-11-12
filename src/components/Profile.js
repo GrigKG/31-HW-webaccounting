@@ -8,8 +8,10 @@ const Profile = ({user, message}) => {
     const [type, setType] = useState('');
 
     const handleLogout = () => {
-
+        sessionStorage.removeItem('login');
+        sessionStorage.removeItem('password');
     }
+
     return (
         <div>
             {!message &&
@@ -28,8 +30,12 @@ const Profile = ({user, message}) => {
                     className="nav-item btn btn-info">
                     Change password
                 </button>
-                <button onClick={handleLogout}>Logout</button>
-                {type && <EditContainer typeEdit={type} login={user.login} password={user.password}/>}
+                <button
+                    onClick={handleLogout}
+                    className="nav-item btn btn-info">
+                    Logout
+                </button>
+                {type && <EditContainer typeEdit={type}/>}
             </div>
             }
             <p>{message}</p>

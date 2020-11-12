@@ -1,4 +1,4 @@
-import {base_url, editPassword, editProfile, loginPage, loginSave, passwordSave, regPage} from "../utils/Constants";
+import {base_url, editPassword, editProfile, loginPage, regPage} from "../utils/Constants";
 
 export const REQUEST = 'REQUEST';
 export const ERROR = 'ERROR';
@@ -19,7 +19,7 @@ export const errorWeatherActions = EMessage => (
     }
 );
 
-export const successWeatherActions = (data, passwordSave) => (
+export const successWeatherActions = (data) => (
     {
         type: SUCCESS,
         payload: {
@@ -27,12 +27,13 @@ export const successWeatherActions = (data, passwordSave) => (
             lastName: data.lastName,
             login: data.login,
             roles: data.roles,
-            password: passwordSave
         }
     }
 );
 
 export const getAccountActions = (type, login, password, firstName, lastName, newPassword) => {
+    sessionStorage.setItem('password', password);
+    sessionStorage.setItem('login', login);
     let init
     switch (type) {
         case loginPage:
@@ -98,7 +99,7 @@ export const getAccountActions = (type, login, password, firstName, lastName, ne
                     throw new Error('' + response.status);
                 }
             })
-            .then(data => dispatch(successWeatherActions(data, password)))
+            .then(data => dispatch(successWeatherActions(data)))
             .catch(e => {
                 dispatch(errorWeatherActions(e.message));
             })
